@@ -22,7 +22,7 @@ char **doubleptr_strim(char **str, int end)
     start = size--;
     if(str[end] == NULL)
         end --;
-        i = end;
+    i = end;
     while(end > start && comparaison2(str[i]) == 1)
     {
         end--;
@@ -67,6 +67,7 @@ char **fill_map(char **str)
     while(str[i])
         i++;
     tmp = ft_calloc(i,1);
+
     if(!tmp)
         return 0;
     i -= 1;
@@ -109,35 +110,38 @@ char	**map_to_doublepointer(int fd)
 	free(s1);
 	return (map);
 }
-
 int main(int ac, char **av)
 {
     int fd;
     char **file_content;
-    char **map;
-    
+    t_elements *elements;
+    elements = (t_elements *)calloc(1, sizeof(t_elements));
+    if (elements == NULL) {
+        perror("Failed to allocate memory");
+        return 1;
+    }
     if(ac != 2)
         return (printf("check your arguments\n"),1);
-    if(checkextention(av[1]) == -1)//*******   must add the one from my laptop
+    if(checkextention(av[1]) == -1)
         error_print("extiontion error \n");
 	fd = open(av[1], O_RDWR);
 	if (fd == -1 || !fd)
 		error_print("Error::can not open the file\n");
 	file_content = map_to_doublepointer(fd);
-    if(check_elements(file_content) == -1)
+
+    if(check_elements(file_content,&elements) == -1)
         error_print("the elements are not correct \n");
-    map = fill_map(file_content);
-        // int p = fill_map(file_content);
-    // int i = 0;
-    // while(file_content[i])
-    // {
-    //     printf("%s\n",file_content[i]);
-    //     i++;
-    // }
+    elements->map = fill_map(file_content);
     int i = 0;
-    while(map[i])
+    while(elements->map[i])
     {
-        printf("%s\n",map[i]);
+        printf("%s++\n",elements->map[i]);
         i++;
     }
+    printf("%s\n",elements->NOO);
+    printf("%s\n",elements->WEE);
+    printf("%s\n",elements->SOO);
+    printf("%s\n",elements->EAA);
+    printf("%s\n",elements->CC);
+    printf("%s\n",elements->FF);
 }
