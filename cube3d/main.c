@@ -1,8 +1,7 @@
 #include "headerfile.h"
 #include <string.h>
 
-
-void fill_otherelements(char **file_content3, t_lmardhadi **lmard)
+int fill_otherelements(char **file_content3, t_lmardhadi **lmard)
 {
     char *tmp1;
     char **tmp;
@@ -16,46 +15,55 @@ void fill_otherelements(char **file_content3, t_lmardhadi **lmard)
         if(tmp1[0] != '\0')
         {
             tmp = ft_split(tmp1,' ');
-            // if(elements_are_mixed(tmp[0]) == -1)
-            //     break;
-          
-        if(ft_strncmp(tmp[0], "NO", ft_strlen(tmp[0])) == 0)
-        {
-            (*lmard)->NO = ft_strdup(tmp[1]);
-        }
-        else if(ft_strncmp(tmp[0], "SO", ft_strlen(tmp[0])) == 0)
-        {
-            (*lmard)->SO = ft_strdup(tmp[1]);
-        }
-        else if(ft_strncmp(tmp[0], "WE", ft_strlen(tmp[0])) == 0)
-        {
-            (*lmard)->WE = ft_strdup(tmp[1]);
-        }
-        else if(ft_strncmp(tmp[0], "EA", ft_strlen(tmp[0])) == 0)
-        {
-            (*lmard)->EA = ft_strdup(tmp[1]);
-        }
-    // printf("%s\n",str[0]);
-        if(ft_strncmp(tmp[0], "F", ft_strlen(tmp[0])) == 0)
-        {
-            (*lmard)->F = ft_strdup(tmp[1]);
-        }
-        if(ft_strncmp(tmp[0], "C", ft_strlen(tmp[0])) == 0)
-        {
-            (*lmard)->C = ft_strdup(tmp[1]);
-        }
-            int yu = 0;
-            while(tmp[yu])
+            if(ft_strncmp(tmp[0], "NO", ft_strlen(tmp[0])) == 0)
             {
-                free(tmp[yu]);
-                yu++;
+                if(ft_doublepointerlen(tmp) != 2)
+                    return (-1);
+                (*lmard)->NO = ft_strdup(tmp[1]);
             }
-            free(tmp);
+            else if(ft_strncmp(tmp[0], "SO", ft_strlen(tmp[0])) == 0)
+            {
+                if(ft_doublepointerlen(tmp) != 2)
+                    return (-1);
+                (*lmard)->SO = ft_strdup(tmp[1]);
+            }
+            else if(ft_strncmp(tmp[0], "WE", ft_strlen(tmp[0])) == 0)
+            {
+                if(ft_doublepointerlen(tmp) != 2)
+                    return (-1);
+                (*lmard)->WE = ft_strdup(tmp[1]);
+            }
+            else if(ft_strncmp(tmp[0], "EA", ft_strlen(tmp[0])) == 0)
+            {
+                if(ft_doublepointerlen(tmp) != 2)
+                    return (-1);
+                (*lmard)->EA = ft_strdup(tmp[1]);
+            }
+            else if(ft_strncmp(tmp[0], "F", ft_strlen(tmp[0])) == 0)
+            {
+                if(ft_doublepointerlen(tmp) != 2)
+                    return (-1);
+                (*lmard)->F = ft_strdup(tmp[1]);
+            }
+            else if(ft_strncmp(tmp[0], "C", ft_strlen(tmp[0])) == 0)
+            {
+                if(ft_doublepointerlen(tmp) != 2)
+                    return (-1);
+                (*lmard)->C = ft_strdup(tmp[1]);
+            }
+                int yu = 0;
+                while(tmp[yu])
+                {
+                    free(tmp[yu]);
+                    yu++;
+                }
+                free(tmp);
         }
 
         i++;
         free(tmp1);
     }
+    return 1;
 }
 
 
@@ -81,13 +89,31 @@ char	**doublepointercopy(char **map)
 	return (test);
 }
 
+// int comparaison2(char *str)
+// {
+//     char *pool = ft_strtrim(str);
+//     if(pool) 
+//         return -1;
+//     return 1;
+// }
+
 int comparaison2(char *str)
 {
-    char *pool = ft_strtrim(str);
-    if(pool[0] == '1' || pool[0] == '0') 
+    if(ft_strncmp(ft_strtrim(str), "NO", 2) == 0)
+        return -1;
+    if(ft_strncmp(ft_strtrim(str), "SO", 2) == 0)
+        return -1;
+    if(ft_strncmp(ft_strtrim(str), "WE", 2) == 0)
+        return -1;
+    if(ft_strncmp(ft_strtrim(str), "EA", 2) == 0)
+        return -1;
+    if(ft_strncmp(ft_strtrim(str), "F", 1) == 0)
+        return -1;
+    if(ft_strncmp(ft_strtrim(str), "C", 1) == 0)
         return -1;
     return 1;
 }
+
 char **doubleptr_strim(char **str, int end)
 {
     char **map;
@@ -95,9 +121,9 @@ char **doubleptr_strim(char **str, int end)
     int size = 0;
     int start = 0;
 
-    // Calculate the starting index
-    while (str[i] && comparaison2(str[i]) == 1)
+    while (str[i] && (comparaison2(str[i]) == -1 || ft_strncmp(ft_strtrim(str[i]), "\0",2) == 0))
     {
+        // printf("==================>%s\n",str[i]);
         size++;
         i++;
     }
@@ -107,7 +133,7 @@ char **doubleptr_strim(char **str, int end)
     if (str[end] == NULL)
         end--;
     i = end;
-    while (end > start && comparaison2(str[i]) == 1)
+    while (end > start && ft_strncmp(ft_strtrim(str[i]), "\0",2) == 0)
     {
         end--;
         i--;
@@ -131,7 +157,17 @@ char **doubleptr_strim(char **str, int end)
 }
 int comparaison(char *str)
 {
-    if(str[0] == ' ' || str[0] == '1' ||str[0] == '\n' || str[0] == '0')
+    if(ft_strncmp(ft_strtrim(str), "NO", 2) != 0)
+        return -1;
+    if(ft_strncmp(ft_strtrim(str), "SO", 2) != 0)
+        return -1;
+    if(ft_strncmp(ft_strtrim(str), "WE", 2) != 0)
+        return -1;
+    if(ft_strncmp(ft_strtrim(str), "EA", 2) != 0)
+        return -1;
+    if(ft_strncmp(ft_strtrim(str), "F", 1) != 0)
+        return -1;
+    if(ft_strncmp(ft_strtrim(str), "C", 1) != 0)
         return -1;
     return 1;
 }
@@ -204,6 +240,7 @@ char	**map_to_doublepointer(int fd)
 	return (map);
     close(fd);
 }
+
 int main(int ac, char **av)
 {
     int fd;
@@ -237,14 +274,18 @@ int main(int ac, char **av)
     if(check_elements(file_content,&elements) == -1)
         error_print("the elements are not correct \n");
     elements->map = fill_map(file_content2);
-    fill_otherelements(file_content3,&lmard);
+    if(fill_otherelements(file_content3,&lmard) == -1)
+        error_print("check the top of your map \n");
+    lmard->map = doublepointercopy(elements->map);
+    check_for_textures_extension(lmard);
+    check_for_unwanted_chars(lmard);
     int i = 0;
-    while(elements->map[i])
+    while(lmard->map[i])
     {
-        printf("%s\n", elements->map[i]);
+        printf("%s\n", lmard->map[i]);
         i++;
     }
-
+    check_walls(lmard);
     printf("%s\n",lmard->NO);
     printf("%s\n",lmard->C);
     printf("%s\n",lmard->WE);

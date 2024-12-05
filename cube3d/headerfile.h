@@ -41,5 +41,11 @@ typedef struct s_lmardhadi
 
 void fill_elements(char **str, t_elements **elements, int type);
 int check_elements(char **map, t_elements **elements);
+int comparaison(char *str);
+int ft_doublepointerlen(char **str);
+int ft_doublepointerlen(char **str);
+void	check_for_textures_extension(t_lmardhadi *lmard);
+void	check_for_unwanted_chars(t_lmardhadi *lmard);
+void	check_walls(t_lmardhadi *lmard);
 
 #endif
