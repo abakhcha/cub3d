@@ -1,6 +1,42 @@
 #include "headerfile.h"
 #include <string.h>
 
+int	ft_atoi(char *str)
+{
+	int	res;
+	int	negative;
+
+	negative = 1;
+	res = 0;
+	while (*str && (*str == ' ' || *str == '\n' || *str == '\t' ||
+			*str == '\v' || *str == '\f' || *str == '\r'))
+		++str;
+	if (*str == '-')
+		negative = -1;
+	if (*str == '-' || *str == '+')
+		++str;
+	while (*str && *str >= '0' && *str <= '9')
+	{
+		res = res * 10 + (*str - 48);
+		++str;
+	}
+	return (res * negative);
+} 
+
+void check_fc(t_lmardhadi *lmard)
+{
+    char **tmp = ft_split(lmard->C, ',');
+    if(ft_doublepointerlen(tmp) != 3)
+        error_print("elements problem\n");
+    if(ft_atoi(tmp[0]) < 0 || ft_atoi(tmp[0]) > 255 || ft_atoi(tmp[1]) < 0 || ft_atoi(tmp[1]) > 255 || ft_atoi(tmp[2]) < 0 || ft_atoi(tmp[2]) > 255)
+        error_print("elements problem\n");
+    char **tmp2 = ft_split(lmard->F, ',');
+    if(ft_doublepointerlen(tmp2) != 3)
+        error_print("elements problem\n");
+    if(ft_atoi(tmp2[0]) < 0 || ft_atoi(tmp2[0]) > 255 || ft_atoi(tmp2[1]) < 0 || ft_atoi(tmp2[1]) > 255 || ft_atoi(tmp2[2]) < 0 || ft_atoi(tmp2[2]) > 255)
+        error_print("elements problem\n");
+}
+
 int fill_otherelements(char **file_content3, t_lmardhadi **lmard)
 {
     char *tmp1;
@@ -279,18 +315,19 @@ int main(int ac, char **av)
     lmard->map = doublepointercopy(elements->map);
     check_for_textures_extension(lmard);
     check_for_unwanted_chars(lmard);
-    int i = 0;
-    while(lmard->map[i])
-    {
-        printf("%s\n", lmard->map[i]);
-        i++;
-    }
-    check_walls(lmard);
-    printf("%s\n",lmard->NO);
-    printf("%s\n",lmard->C);
-    printf("%s\n",lmard->WE);
-    printf("%s\n",lmard->SO);
-    printf("%s\n",lmard->EA);
-    printf("%s\n",lmard->F);
+    check_fc(lmard);
+    // int i = 0;
+    // while(lmard->map[i])
+    // {
+    //     printf("%s\n", lmard->map[i]);
+    //     i++;
+    // }
+    // check_walls(lmard);
+    // printf("%s\n",lmard->NO);
+    // printf("%s\n",lmard->C);
+    // printf("%s\n",lmard->WE);
+    // printf("%s\n",lmard->SO);
+    // printf("%s\n",lmard->EA);
+    // printf("%s\n",lmard->F);
     return 0;
 }
