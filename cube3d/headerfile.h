@@ -26,14 +26,18 @@ typedef struct s_elements
     int F;
     int C;
     char **map;
-    char *NOO;
-    char *SOO;
-    char *WEE;
-    char *EAA;
-    char *FF;
-    char *CC;
 }t_elements;
 
+typedef struct s_lmardhadi
+{
+    char **map;
+    char *NO;
+    char *SO;
+    char *WE;
+    char *EA;
+    char *F;
+    char *C;
+}t_lmardhadi;
 
 void fill_elements(char **str, t_elements **elements, int type);
 int check_elements(char **map, t_elements **elements);

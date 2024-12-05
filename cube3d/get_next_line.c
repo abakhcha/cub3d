@@ -15,27 +15,27 @@
 char	*rdsv(int fd, char *str)
 {
 	int		reader;
-	char	*buff;
+	char	*buF;
 
 	reader = 1;
 	if (!str)
 		str = ft_calloc(1, 1);
-	buff = malloc(BUFFER_SIZE + 1);
-	if (!buff)
+	buF = malloc(BUFER_SIZE + 1);
+	if (!buF)
 		return (NULL);
 	while (!check_newline(str) && reader != 0)
 	{
-		reader = (int)read(fd, buff, BUFFER_SIZE);
+		reader = (int)read(fd, buF, BUFER_SIZE);
 		if (reader == -1)
 		{
 			free(str);
-			free(buff);
+			free(buF);
 			return (NULL);
 		}
-		buff[reader] = '\0';
-		str = str_join(str, buff);
+		buF[reader] = '\0';
+		str = str_join(str, buF);
 	}
-	free(buff);
+	free(buF);
 	return (str);
 }
 
@@ -67,14 +67,14 @@ char	*get_l(char *str)
 char	*get_next_line(int fd)
 {
 	static char	*line;
-	char		*buff;
+	char		*buF;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFER_SIZE <= 0)
 		return (NULL);
 	line = rdsv(fd, line);
 	if (!line)
 		return (NULL);
-	buff = get_l(line);
+	buF = get_l(line);
 	line = save(line);
-	return (buff);
+	return (buF);
 }
