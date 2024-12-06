@@ -1,6 +1,58 @@
 #include "headerfile.h"
 #include <string.h>
 
+    void palyer_exists(t_lmardhadi *lmard)
+    {
+        int i = 0;
+        int j;
+        int p = 0;
+        int playeri;
+        int playerj;
+
+        while(lmard->map[i])
+        {
+           j = 0;
+           while(lmard->map[i][j])
+           {
+                if(lmard->map[i][j] == 'N' || lmard->map[i][j] == 'S'
+                    || lmard->map[i][j] == 'W'|| lmard->map[i][j] == 'E')
+                    {
+                        p += 1;
+                        playeri = i;
+                        playerj = j;
+                    }
+                    j++;
+           }
+            i++;
+        }
+            if(p != 1)
+                error_print("check the players number\n");
+			if((lmard->map[playeri][playerj] == 'E' || lmard->map[playeri][playerj] == 'W' || lmard->map[playeri][playerj] == 'N' || lmard->map[playeri][playerj] == 'S') 
+				&& (lmard->map[playeri][playerj + 1] == '1' && lmard->map[playeri - 1][playerj] == '1'
+				&& lmard->map[playeri + 1][playerj] == '1'&& lmard->map[playeri][playerj - 1] == '1'))
+                {
+				    error_print("the player is surronded\n");
+                }
+			if(playeri == 0 || playeri == i - 1 || !lmard->map[playeri][playerj + 1] || !lmard->map[playeri - 1][playerj]
+				|| !lmard->map[playeri + 1][playerj]|| !lmard->map[playeri][playerj - 1])
+                {
+				    error_print("check the player position\n");
+                }
+    }
+
+void check_textures_extention(t_lmardhadi *lmard)
+{
+    if( open(lmard->NO, O_RDWR) == -1)
+        error_print("check ur textures files\n");
+    else if( open(lmard->SO, O_RDWR) == -1)
+        error_print("check ur textures files\n");
+    else if( open(lmard->WE, O_RDWR) == -1)
+        error_print("check ur textures files\n");
+    else if( open(lmard->EA, O_RDWR) == -1)
+        error_print("check ur textures files\n");
+
+}
+
 int	ft_atoi(char *str)
 {
 	int	res;
@@ -102,8 +154,6 @@ int fill_otherelements(char **file_content3, t_lmardhadi **lmard)
     return 1;
 }
 
-
-
 char	**doublepointercopy(char **map)
 {
 	int		i;
@@ -124,14 +174,6 @@ char	**doublepointercopy(char **map)
 	test[i] = NULL;
 	return (test);
 }
-
-// int comparaison2(char *str)
-// {
-//     char *pool = ft_strtrim(str);
-//     if(pool) 
-//         return -1;
-//     return 1;
-// }
 
 int comparaison2(char *str)
 {
@@ -164,8 +206,6 @@ char **doubleptr_strim(char **str, int end)
         i++;
     }
     start = size;
-
-    // Adjust the ending index
     if (str[end] == NULL)
         end--;
     i = end;
@@ -174,21 +214,17 @@ char **doubleptr_strim(char **str, int end)
         end--;
         i--;
     }
-
-    // Allocate memory for the map
     map = malloc((end - start + 2) * sizeof(char *));
     if (!map)
         return NULL;
-
-    // Copy strings from start to end
     int q = 0;
     while (start <= end)
     {
-        map[q] = ft_strdup(str[start]); // Duplicate string
+        map[q] = ft_strdup(str[start]);
         start++;
         q++;
     }
-    map[q] = NULL; // Null-terminate the array
+    map[q] = NULL;
     return map;
 }
 int comparaison(char *str)
@@ -212,37 +248,26 @@ char **fill_map(char **str)
     int i = 0;
     int j = 0;
     char **tmp;
-
-    // Calculate the size of the input array
+    
     while (str[i])
         i++;
     int original_size = i;
-
-    // Allocate memory for tmp
     tmp = malloc((original_size + 1) * sizeof(char *));
     if (!tmp)
         return NULL;
-
-    // Find the starting index
     i -= 1;
     int end = i;
     while (i >= 0 && comparaison(str[i]) == -1)
         i--;
     i++;
-
-    // Copy elements to tmp
     while (str[i])
     {
-        tmp[j] = ft_strdup(str[i]); // Duplicate string
+        tmp[j] = ft_strdup(str[i]);
         i++;
         j++;
     }
-    tmp[j] = NULL; // Null-terminate tmp
-
-    // Trim and return the result
+    tmp[j] = NULL;
     char **result = doubleptr_strim(tmp, j - 1);
-
-    // Free tmp (if necessary)
     for (int k = 0; k < j; k++)
         free(tmp[k]);
     free(tmp);
@@ -316,13 +341,16 @@ int main(int ac, char **av)
     check_for_textures_extension(lmard);
     check_for_unwanted_chars(lmard);
     check_fc(lmard);
+    check_textures_extention(lmard);
     // int i = 0;
     // while(lmard->map[i])
     // {
     //     printf("%s\n", lmard->map[i]);
     //     i++;
     // }
-    // check_walls(lmard);
+    check_walls(lmard);
+    palyer_exists(lmard);
+
     // printf("%s\n",lmard->NO);
     // printf("%s\n",lmard->C);
     // printf("%s\n",lmard->WE);

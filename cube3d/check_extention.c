@@ -71,9 +71,9 @@ void	check_walls(t_lmardhadi *lmard)
 			}
 			if(lmard->map[i][j] == '0' 
 				&& (!lmard->map[i][j + 1] || !lmard->map[i - 1][j]
-				|| !lmard->map[i + 1][j]|| !lmard->map[i][j - 1] || !lmard->map[i][j + 1]))
+				|| !lmard->map[i + 1][j]|| !lmard->map[i][j - 1]))
 			{
-				error_print("check ur walls pls\n");
+				error_print("check ur walls pls2\n");
 			}
 			j++;
 		}
