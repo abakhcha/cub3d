@@ -147,7 +147,6 @@ int fill_otherelements(char **file_content3, t_lmardhadi **lmard)
                 }
                 free(tmp);
         }
-
         i++;
         free(tmp1);
     }
@@ -304,6 +303,29 @@ char	**map_to_doublepointer(int fd , char *av)
     close(fd);
 }
 
+int rgb_format(char *str)
+{
+    int def = 0;
+
+    int i = 1;
+    while(str[i])
+    {
+        if((str[i] >= '0' && str[i] <= '9') || str[i] == ' ')
+            i++;
+        else if(str[i] == ',' && ((str[i - 1] >= '0' && str[i - 1] <= '9') || str[i - 1] == ' '))
+        {
+            def += 1;
+            i++;
+        }
+        else
+            break;
+    }
+    if(str[i] == '\0' && def == 2)
+        return 1;
+    return -1;
+}
+
+
 int main(int ac, char **av)
 {
     int fd;
@@ -341,5 +363,7 @@ int main(int ac, char **av)
     check_textures_extention(lmard);
     check_walls(lmard);
     palyer_exists(lmard);
+    if(rgb_format(lmard->C) == -1 || rgb_format(lmard->F) == -1) 
+        printf("check your rgb format\n");
     return 0;
 }
