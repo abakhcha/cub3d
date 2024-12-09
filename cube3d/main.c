@@ -201,7 +201,6 @@ char **doubleptr_strim(char **str, int end)
 
     while (str[i] && (comparaison2(str[i]) == -1 || ft_strncmp(ft_strtrim(str[i]), "\0",2) == 0))
     {
-        // printf("==================>%s\n",str[i]);
         size++;
         i++;
     }
@@ -276,12 +275,15 @@ char **fill_map(char **str)
 }
 
 
-char	**map_to_doublepointer(int fd)
+char	**map_to_doublepointer(int fd , char *av)
 {
 	char	*s1;
 	char	*l;
 	char	**map;
 	int		i;
+	fd = open(av, O_RDWR);
+	if (fd == -1 || !fd)
+		error_print("Error::can not open the file\n");
 
 	l = get_next_line(fd);
 	if (l == NULL)
@@ -324,14 +326,9 @@ int main(int ac, char **av)
         return (printf("check your arguments\n"),1);
     if(checkextention(av[1]) == -1)
         error_print("extiontion error \n");
-	fd = open(av[1], O_RDWR);
-	if (fd == -1 || !fd)
-		error_print("Error::can not open the file\n");
-	file_content = map_to_doublepointer(fd);
-	fd = open(av[1], O_RDWR);
-    file_content2 = map_to_doublepointer(fd);
-	fd = open(av[1], O_RDWR);
-    file_content3 = map_to_doublepointer(fd);
+	file_content = map_to_doublepointer(fd, av[1]);
+    file_content2 = map_to_doublepointer(fd, av[1]);
+    file_content3 = map_to_doublepointer(fd, av[1]);
     if(check_elements(file_content,&elements) == -1)
         error_print("the elements are not correct \n");
     elements->map = fill_map(file_content2);
@@ -342,20 +339,7 @@ int main(int ac, char **av)
     check_for_unwanted_chars(lmard);
     check_fc(lmard);
     check_textures_extention(lmard);
-    // int i = 0;
-    // while(lmard->map[i])
-    // {
-    //     printf("%s\n", lmard->map[i]);
-    //     i++;
-    // }
     check_walls(lmard);
     palyer_exists(lmard);
-
-    // printf("%s\n",lmard->NO);
-    // printf("%s\n",lmard->C);
-    // printf("%s\n",lmard->WE);
-    // printf("%s\n",lmard->SO);
-    // printf("%s\n",lmard->EA);
-    // printf("%s\n",lmard->F);
     return 0;
 }
