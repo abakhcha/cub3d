@@ -6,7 +6,7 @@
 /*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 09:27:04 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/01/02 11:39:56 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:40:47 by abakhcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,27 @@
 char	*rdsv(int fd, char *str)
 {
 	int		reader;
-	char	*buF;
+	char	*buf;
 
 	reader = 1;
 	if (!str)
 		str = ft_calloc(1, 1);
-	buF = malloc(BUFER_SIZE + 1);
-	if (!buF)
+	buf = malloc(BUFER_SIZE + 1);
+	if (!buf)
 		return (NULL);
 	while (!check_newline(str) && reader != 0)
 	{
-		reader = (int)read(fd, buF, BUFER_SIZE);
+		reader = (int)read(fd, buf, BUFER_SIZE);
 		if (reader == -1)
 		{
 			free(str);
-			free(buF);
+			free(buf);
 			return (NULL);
 		}
-		buF[reader] = '\0';
-		str = str_join(str, buF);
+		buf[reader] = '\0';
+		str = str_join(str, buf);
 	}
-	free(buF);
+	free(buf);
 	return (str);
 }
 
@@ -58,8 +58,8 @@ char	*get_l(char *str)
 		rts[i] = str[i];
 		i++;
 	}
-	if (str[i] == '\n'){
-		rts[i++] = '\n';}
+	if (str[i] == '\n')
+		rts[i++] = '\n';
 	rts[i] = '\0';
 	return (rts);
 }
@@ -67,14 +67,14 @@ char	*get_l(char *str)
 char	*get_next_line(int fd)
 {
 	static char	*line;
-	char		*buF;
+	char		*buf;
 
 	if (fd < 0 || BUFER_SIZE <= 0)
 		return (NULL);
 	line = rdsv(fd, line);
 	if (!line)
 		return (NULL);
-	buF = get_l(line);
+	buf = get_l(line);
 	line = save(line);
-	return (buF);
+	return (buf);
 }

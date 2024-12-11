@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/02 09:27:26 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/03/30 02:46:23 by abakhcha         ###   ########.fr       */
+/*   Created: 2024/12/11 13:34:31 by abakhcha          #+#    #+#             */
+/*   Updated: 2024/12/11 13:38:12 by abakhcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,17 +108,4 @@ void	*ft_calloc(size_t s, size_t size)
 		i++;
 	}
 	return (ss);
-}
-
-void	error_print(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	exit(1);
 }

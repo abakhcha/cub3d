@@ -1,96 +1,79 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_elements.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/11 12:58:01 by abakhcha          #+#    #+#             */
+/*   Updated: 2024/12/11 14:15:43 by abakhcha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "headerfile.h"
 
-int elements_are_mixed(char *str)
+int	ft_doublepointerlen(char **str)
 {
-    if(ft_strncmp(str, "NO", 2) == 0)
-        return (1);
-    else if(ft_strncmp(str, "SO", 2) == 0)
-        return (1);
-    else if(ft_strncmp(str, "WE", 2) == 0)
-        return (1);
-    else if(ft_strncmp(str, "EA", 2) == 0)
-        return (1);
-    else if(str[0] == 'F' && str[1] == '\0')
-        return (1);
-    else if(str[0] == 'C' && str[1] == '\0')
-        return (1);
-    return (-1);
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
-void compare_texture(char **str, t_elements **elements)
+int	check_elements(char **map, t_elements **elements)
 {
-    if(ft_strncmp(str[0], "NO", ft_strlen(str[0])) == 0)
-    {
-        
-        (*elements)->NO += 1;
-    }
-    else if(ft_strncmp(str[0], "SO", ft_strlen(str[0])) == 0)
-        (*elements)->SO += 1;
-    else if(ft_strncmp(str[0], "WE", ft_strlen(str[0])) == 0)
-        (*elements)->WE += 1;
-    else if(ft_strncmp(str[0], "EA", ft_strlen(str[0])) == 0)
-        (*elements)->EA += 1;
+	char	*tmp1;
+	char	**tmp;
+	int		i;
+	int		p;
+
+	i = 0;
+	**elements = (typeof(**elements)){0};
+	while (map[i])
+	{
+		tmp1 = ft_strtrim(map[i]);
+		if (tmp1[0] != '\0')
+		{
+			tmp = ft_split(tmp1, ' ');
+			if (elements_are_mixed(tmp[0]) == -1)
+				break ;
+			compare_texture(tmp, elements);
+			compare_floorcellingcolor(tmp, elements);
+			ft_doublepointerfree(tmp);
+		}
+		i++;
+		free(tmp1);
+	}
+	return (check_elementsnumber(*elements));
 }
 
-void compare_floorcellingColor(char **str, t_elements **elements)
+void	check_fc(t_global *global)
 {
-    if(ft_strncmp(str[0], "F", ft_strlen(str[0])) == 0)
-        (*elements)->F += 1;
-    if(ft_strncmp(str[0], "C", ft_strlen(str[0])) == 0)
-        (*elements)->C += 1;
-}
+	char	**tmp;
+	char	**tmp2;
 
-int check_elementsNumber(t_elements *elements)
-{
-    if(elements->EA == 1 && elements->WE == 1 && elements->SO == 1 &&
-        elements->NO == 1 && elements->F == 1 && elements->C == 1)
-        return (1);
-    return (-1);
-}
-int ft_doublepointerlen(char **str)
-{
-    int i = 0;
-
-    while(str[i])
-        i++;
-    return i;
-}
-int check_elements(char **map, t_elements **elements)
-{
-    char *tmp1;
-    char **tmp;
-    int i;
-    int p;
-
-    i = 0;
-    (*elements)->C = 0;
-    (*elements)->NO = 0;
-    (*elements)->WE = 0;
-    (*elements)->SO = 0;
-    (*elements)->EA = 0;
-    (*elements)->F = 0;
-    while(map[i])
-    {
-        tmp1 = ft_strtrim(map[i]);
-        if(tmp1[0] != '\0')
-        {
-            tmp = ft_split(tmp1,' ');
-            if(elements_are_mixed(tmp[0]) == -1)
-                break;
-            compare_texture(tmp,elements);
-            compare_floorcellingColor(tmp,elements);
-            int yu = 0;
-            while(tmp[yu])
-            {
-                free(tmp[yu]);
-                yu++;
-            }
-            free(tmp);
-        }
-
-        i++;
-        free(tmp1);
-    }
-
-        return (check_elementsNumber(*elements));
+	tmp = ft_split(global->c, ',');
+	if (ft_doublepointerlen(tmp) != 3)
+		error_print("elements problem\n");
+	if (ft_atoi(tmp[0]) < 0
+		|| ft_atoi(tmp[0]) > 255
+		|| ft_atoi(tmp[1]) < 0
+		|| ft_atoi(tmp[1]) > 255
+		|| ft_atoi(tmp[2]) < 0
+		|| ft_atoi(tmp[2]) > 255)
+	{
+		error_print("elements problem\n");
+	}
+	tmp2 = ft_split(global->f, ',');
+	if (ft_doublepointerlen(tmp2) != 3)
+		error_print("elements problem\n");
+	if (ft_atoi(tmp2[0]) < 0
+		|| ft_atoi(tmp2[0]) > 255
+		|| ft_atoi(tmp2[1]) < 0
+		|| ft_atoi(tmp2[1]) > 255
+		|| ft_atoi(tmp2[2]) < 0
+		|| ft_atoi(tmp2[2]) > 255)
+		error_print("elements problem\n");
 }
