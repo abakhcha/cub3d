@@ -6,7 +6,7 @@
 /*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:01:01 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/12/11 14:49:02 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:13:08 by abakhcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	check_for_unwanted_chars(t_global *global)
 int	chek_walls2(t_global *global, int i, int j)
 {
 	if (global->map[i][j] == '0'
-		&& (j == 0
+		&& (j == 0 || i == 0
 		|| global->map[i][j + 1] == '\0'
 		|| global->map[i - 1][j] == ' '
 		|| global->map[i + 1][j] == ' '
