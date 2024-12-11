@@ -6,11 +6,11 @@
 /*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:07:22 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/12/11 15:05:17 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:28:16 by abakhcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headerfile.h"
+#include "header_file/headerfile.h"
 
 int	comparaison2(char *str)
 {

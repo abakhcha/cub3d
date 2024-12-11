@@ -6,11 +6,11 @@
 /*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 11:53:33 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/12/11 11:53:56 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:22:04 by abakhcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headerfile.h"
+#include "../header_file/headerfile.h"
 
 void	ft_doublepointerfree(char **str)
 {

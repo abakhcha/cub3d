@@ -1,5 +1,5 @@
 {
     "files.associations": {
-        "headerfile.h": "c"
+        "../header_file/headerfile.h": "c"
     }
 }

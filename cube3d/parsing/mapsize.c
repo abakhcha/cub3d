@@ -6,11 +6,11 @@
 /*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 14:18:34 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/12/11 15:02:18 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:22:04 by abakhcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headerfile.h"
+#include "../header_file/headerfile.h"
 
 void	map_size(t_global *global)
 {

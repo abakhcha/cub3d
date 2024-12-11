@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/11 13:42:48 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/12/11 15:03:14 by abakhcha         ###   ########.fr       */
+/*   Created: 2024/12/11 15:29:35 by abakhcha          #+#    #+#             */
+/*   Updated: 2024/12/11 15:29:50 by abakhcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <string.h>
 
-# include "get_next_line.h"
+# include "../parsing/get_next_line.h"
 
 int		checkextention(char *av);
 void	error_print(char *str);

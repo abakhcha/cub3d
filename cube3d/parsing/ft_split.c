@@ -6,11 +6,11 @@
 /*   By: abakhcha <abakhcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:34:15 by abakhcha          #+#    #+#             */
-/*   Updated: 2024/12/11 13:34:24 by abakhcha         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:22:04 by abakhcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headerfile.h"
+#include "../header_file/headerfile.h"
 
 size_t	ft_countwords(char *s, char c)//add it here
 {

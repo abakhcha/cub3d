@@ -1,9 +1,14 @@
-NO file.xpm
-SO file.xpm
-WE file.xpm
-EA file.xpm
+NO textures/file.xpm
+SO textures/file.xpm
+WE textures/file.xpm
+EA textures/file.xpm
 F 220,100,0
 C 225,30,0
+
+
+
+
+
 111111111111111111111111
 1010000000110000000000001
 1N11000001110000000000001
